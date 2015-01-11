@@ -1,0 +1,8 @@
+library(lubridate)
+d <- read.csv("household_power_consumption.txt", sep=";", na="?", header=TRUE)
+d$Date <- dmy(d$Date)
+d$Time <- hms(d$Time)
+png(filename="plot1.png", width=480, height=480)
+sub <- subset(d, year(Date) == 2007 & month(Date) == 2 & (day(Date) == 1 | day(Date) == 2))
+with(sub, hist(Global_active_power, xlab="Global Active Power (kilowatts)", main="Global Active Power", col="red"))
+dev.off()
